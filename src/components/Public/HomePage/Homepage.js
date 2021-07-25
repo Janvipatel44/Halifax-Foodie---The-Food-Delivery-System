@@ -20,7 +20,7 @@ const Homepage = () => {
 <div className="container">
     <div className="row" style={{justifyContent : "center" , alignContent : "center" , marginTop:"20px"}}>
     <h1>
- Welocome
+ Welcome
   </h1>
     </div>
     <div className="row"  style={{justifyContent : "center" , alignContent : "center" , marginTop:"20px"}}>

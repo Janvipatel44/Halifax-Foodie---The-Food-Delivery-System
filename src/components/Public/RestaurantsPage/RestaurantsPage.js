@@ -28,7 +28,7 @@ const RestaurantsPage = () => {
     <div className="card">
       <img src="https://threebestrated.ca/images/CurryVillage-Halifax-NS.jpeg" className="card-img-top" alt="..."/>
       <div className="card-body">
-        <h5 className="card-title">Curry Vilage Indain Restaurant</h5>
+        <h5 className="card-title">Curry Vilage Indian Restaurant</h5>
         <p className="card-text">6386 Quinpool Rd, Halifax, NS B3H </p>
       </div>
     </div>
