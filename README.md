@@ -10,10 +10,10 @@
 
 ## Author
 
-* [Nirmal Parbatbhai Bhimani (B00)](nr405015@dal.ca) - (Group Memeber)
-* [Janvi Patel (B00)](jn410076@dal.ca) - (Group Memeber)
-* [Sanket Vikenbhai Shah (B00)](sn488207@dal.ca) - (Group Memeber)
-* [Aditya Bakshi (B00)](aditya.bakshi@dal.ca) - (Group Memeber)
+* [Nirmal Bhimani (B00878753)](nr405015@dal.ca) - (Group Memeber)
+* [Janvi Patel (B00863421)](jn410076@dal.ca) - (Group Memeber)
+* [Sanket Shah (B00862499)](sn488207@dal.ca) - (Group Memeber)
+* [Aditya Bakshi (B00870389)](aditya.bakshi@dal.ca) - (Group Memeber)
 
 
 ## Built With
