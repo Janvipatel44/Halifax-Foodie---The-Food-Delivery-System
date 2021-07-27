@@ -8,6 +8,8 @@ import Signup from '../components/Public/Signup/signup';
 import  MultiFactorValidation  from '../components/Public/MultifactorValidation/multiFactorValidation'
 import Homepage from '../components/Public/HomePage/Homepage';
 import RestaurantsPage from '../components/Public/RestaurantsPage/RestaurantsPage';
+import ReceipeSimilarity from '../components/Public/ReceipeSimilarity/ReceipeSimilarity';
+import Review from '../components/Public/Review/Review';
 
 const PublicSection = () => {
     return ( <div>
@@ -24,6 +26,12 @@ const PublicSection = () => {
                     </Route>
                     <Route path="/" component={MultiFactorValidation} exact>
                         <Homepage></Homepage>
+                    </Route>
+                    <Route path="/review" component={Review}>
+                        <Review></Review>
+                    </Route>
+                    <Route path="/recipesimilarity"  component={ReceipeSimilarity}  >
+                        <ReceipeSimilarity></ReceipeSimilarity>
                     </Route>
                     <Route path="/restaurantsPage"  component={RestaurantsPage}  >
                         <RestaurantsPage></RestaurantsPage>
