@@ -1,0 +1,113 @@
+
+.profile-page {
+  padding: 3%;
+  border-radius: 0.5rem;
+}
+
+.profile-img {
+  text-align: center;
+}
+.profile-img img {
+  width: 56%;
+  height: 100%;
+}
+
+.profile-img .file {
+  position: relative;
+  overflow: hidden;
+  margin-top: -26%;
+  width: 56%;
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  background: #212529b8;
+}
+
+.profile-img .file input {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
+
+.profile-head {
+  bottom: 0;
+}
+
+.nav-link {
+  color: #000000;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: grey;
+}
+
+input#input {
+  padding: 4px;
+  font-size: 1em;
+  width: 400px
+}
+
+input::placeholder {
+  color: #ccc;
+  font-style: italic;
+}
+
+p.agentRequest {
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  min-width: 50%;
+  max-width: 85%;
+  float: left;
+  background-color: #7d7;
+}
+p.customerRequest{
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: right;
+  min-width: 55%;
+  max-width: 85%;
+  float: right;
+  background-color: rgb(193, 214, 219);
+  font-style: italic;
+}
+p.conversationEndRequest{
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: right;
+  min-width: 55%;
+  max-width: 85%;
+  float: right;
+  background-color: rgb(193, 214, 219);
+  font-style: italic;
+}
+p.lexResponse {
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: left;
+  min-width: 55%;
+  max-width: 85%;
+  float: right;
+  background-color: #bbf;
+}
+p.lexError {
+  margin: 4px;
+  padding: 4px 10px 4px 10px;
+  border-radius: 4px;
+  text-align: right;
+  min-width: 50%;
+  max-width: 85%;
+  float: right;
+  background-color: #f77;
+}
+
+#myChat {
+  text-align: -webkit-right;
+  margin-right: 50px;
+  padding-top: 50px;
+}

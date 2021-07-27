@@ -1,0 +1,63 @@
+p.agentRequest {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    min-width: 50%;
+    max-width: 85%;
+    float: left;
+    background-color: #7d7;
+  }
+  p.customerRequest{
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: right;
+    min-width: 55%;
+    max-width: 85%;
+    float: right;
+    background-color: rgb(193, 214, 219);
+    font-style: italic;
+  }
+  p.conversationEndRequest{
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: right;
+    min-width: 55%;
+    max-width: 85%;
+    float: right;
+    background-color: rgb(193, 214, 219);
+    font-style: italic;
+  }
+  p.lexResponse {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: left;
+    min-width: 55%;
+    max-width: 85%;
+    float: right;
+    background-color: #bbf;
+  }
+  p.lexError {
+    margin: 4px;
+    padding: 4px 10px 4px 10px;
+    border-radius: 4px;
+    text-align: right;
+    min-width: 50%;
+    max-width: 85%;
+    float: right;
+    background-color: #f77;
+  }
+  
+  #myChat {
+    text-align: -webkit-right;
+    margin-right: 50px;
+    padding-top: 50px;
+  }
+
+  *,
+*::before,
+*::after {
+  box-sizing: content-box !important;
+}

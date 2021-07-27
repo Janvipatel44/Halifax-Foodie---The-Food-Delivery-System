@@ -5,6 +5,8 @@ import PrivateNavbar from '../Navbar/navbar';
 import Sidebar from '../Sidebar/sidebar';
 import MyOrders from '../MyOrders/myorders';
 import BuyFoods from '../BuyFoods/buyFoods';
+import AddItem from '../AddItem/addItem';
+import Chatbot from '../Chatbot/chatbot';
 
 const Layout = () => {
 
@@ -27,6 +29,12 @@ const Layout = () => {
                         </Route>
                         <Route path="/buyFoods" component={BuyFoods}>
                             <BuyFoods></BuyFoods>
+                        </Route>
+                        <Route path="/additem" component={AddItem}>
+                            <AddItem></AddItem>
+                        </Route>
+                        <Route path="/chat" component={Chatbot}>
+                            <Chatbot></Chatbot>
                         </Route>
                     </Switch>
                 </div>

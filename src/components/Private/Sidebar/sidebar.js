@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import './sidebar.css';
-// import { AdminSidebarData } from './AdminSidebarData';
+import { AdminSidebarData } from './AdminSidebarData';
 import { UserSidebarData } from './UserSidebarData';
 import {RiMenuLine} from 'react-icons/ri';
 
 const Sidebar = ({sendExpandedvalue}) => {
 
-    const isAdmin = false;
-    const SidebarData = isAdmin ? UserSidebarData : UserSidebarData ;
+
+    var isAdmin = null;
+    if(localStorage.getItem("role") == "admin"){
+         isAdmin = true;
+    }
+    else{
+        isAdmin = false;
+    }
+    
+    const SidebarData = isAdmin ? AdminSidebarData : UserSidebarData ;
     const sidebarCollapsed=localStorage.getItem('sidebar-collapsed');
     const [isExpanded,setIsExpanded]=useState(sidebarCollapsed?false:true);
     sendExpandedvalue(isExpanded);
