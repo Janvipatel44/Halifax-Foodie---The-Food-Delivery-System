@@ -19,7 +19,7 @@ export const AdminSidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'ML',
+    title: 'Recepie Similarity',
     path: '/recipesimilarity',
     icon: <RiDonutChartLine />,
     cName: 'nav-text'
