@@ -5,9 +5,12 @@ import { Switch, Route } from 'react-router-dom';
 import Login from '../components/Public/Login/login';
 import PublicNavbar from '../components/Public/NavBar/Navbar';
 import Signup from '../components/Public/Signup/signup';
-import  MultiFactorValidation  from '../components/Public/MultifactorValidation/multiFactorValidation'
+import  MultiFactorValidation  from '../components/Public/MultifactorValidation/multiFactorValidation';
 import Homepage from '../components/Public/HomePage/Homepage';
-import RestaurantsPage from '../components/Public/RestaurantsPage/RestaurantsPage';
+import ReceipeSimilarity from '../components/Private/ReceipeSimilarity/ReceipeSimilarity';
+import Review from '../components/Public/Review/Review';
+import RestaurantItems from '../components/Private/RestaurantItems/RestaurantItems';
+import RestaurantsPage from '../components/Public/RestaurantsPage/RestaurantsPage'; 
 
 const PublicSection = () => {
     return ( <div>
@@ -28,6 +31,10 @@ const PublicSection = () => {
                     <Route path="/restaurantsPage"  component={RestaurantsPage}  >
                         <RestaurantsPage></RestaurantsPage>
                     </Route>
+                    <Route path="/restaurantsItem" component={RestaurantItems}>
+                            <RestaurantItems></RestaurantItems>
+                        </Route>
+
             </Switch> 
         </div>
     );

@@ -8,6 +8,13 @@ import BuyFoods from '../BuyFoods/buyFoods';
 import AddItem from '../AddItem/addItem';
 import Chatbot from '../Chatbot/chatbot';
 import Talktous from '../Talktous/Talktous';
+import Homepage from '../../Public/HomePage/Homepage'
+import RestaurantItem from '../../Private/RestaurantItems/RestaurantItems';
+import OrderPage from '../../Private/OrderPage/Orderpage'
+import WordCloud from '../../Private/WordCloud/WordCloud';
+import ReceipeSimilarity from '../../Private/ReceipeSimilarity/ReceipeSimilarity';
+import Visulization from '../../Public/VIsualization/visualization';
+
 
 const Layout = () => {
 
@@ -28,9 +35,20 @@ const Layout = () => {
                         <Route path="/myOrders" component={MyOrders}>
                             <MyOrders></MyOrders>
                         </Route>
-                        <Route path="/buyFoods" component={BuyFoods}>
-                            <BuyFoods></BuyFoods>
+                        <Route path="/buyFoods" component={Homepage}>
+                            <Homepage></Homepage>
                         </Route>
+                        <Route path="/restaurantsItem" component={RestaurantItem}>
+                            <RestaurantItem></RestaurantItem>
+                        </Route>
+
+                        <Route path="/orderItem" component={OrderPage}>
+                            <OrderPage></OrderPage>
+                        </Route>
+
+                        {/* <Route path="/wordCloud" component={WordCloud}>
+                            <WordCloud></WordCloud>
+                        </Route> */}
                         <Route path="/additem" component={AddItem}>
                             <AddItem></AddItem>
                         </Route>
@@ -40,6 +58,17 @@ const Layout = () => {
                         <Route path="/talktous" component={Talktous}>
                             <Talktous></Talktous>
                         </Route>
+                        <Route path="/recipesimilarity" component={ReceipeSimilarity}>
+                            <ReceipeSimilarity></ReceipeSimilarity>
+                        </Route>
+                        <Route path="/visulization" component={Visulization}>
+                            <Visulization></Visulization>
+                        </Route>
+                        <Route path="/analysis" component={WordCloud}>
+                            <WordCloud></WordCloud>
+                        </Route>
+
+
                     </Switch>
                 </div>
             </div>

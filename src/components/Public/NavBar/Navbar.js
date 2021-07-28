@@ -1,12 +1,25 @@
 
 import React, { Component } from 'react';
 import './NavBar.css';
+import { useHistory } from 'react-router-dom';
 
 const PublicNavbar = () => {
+    const history = useHistory();
+
     const mystyle = {
         hover: "white",
        
       };
+
+    const onClickReceipeSimilarity = (event) => 
+    {
+        history.push("/recipesimilarity");
+    }
+
+    const onClickReview = (event) => 
+    {
+        history.push("/review");
+    }
 
     return ( 
     <nav className="navbar navbar-expand-lg navbar-dark" id="home-navbar" style={{backgroundColor: '#2A52BE'}}>
@@ -16,8 +29,12 @@ const PublicNavbar = () => {
         </button>
         <div className="collapse navbar-collapse justify-content-between" id="navbarContent">
             <ul className="navbar-nav">
-                <li><a className="nav-item nav-link" href="#">Recipes</a></li>
-                <li><a className="nav-item nav-link" href="#">Foods</a></li>
+                {/* <li><a className="nav-item nav-link" href="#">Recipes</a></li>
+                <li><a className="nav-item nav-link" onClick={(e) => {onClickReview(e)}}>Review</a></li>
+                <li><a className="nav-item nav-link"onClick={(e) => onClickReceipeSimilarity(e)}>ML</a></li>
+                <li><a className="nav-item nav-link" href="#">Foods</a></li> */}
+                {/* <li><a className="nav-item nav-link" href="#">Recipes</a></li>
+                <li><a className="nav-item nav-link" href="#">Foods</a></li> */}
 
             </ul>
             <div>

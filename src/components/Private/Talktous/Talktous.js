@@ -6,7 +6,13 @@
 // import axios from 'axios';
 // import { Spinner } from "react-bootstrap";
 
-// const Talktous = () => {
+const Talktous = () => {
+
+    return (
+        <>
+        <h1>Talk To us Page</h1>
+        </>
+    )
 
 //     const PUBSUB_BACKEND = "";
 //     const USER_PROFILE = "user";
@@ -265,6 +271,6 @@
 //         </div>
 //     );
 
-// }
+}
 
-// export default Talktous;
+export default Talktous;
