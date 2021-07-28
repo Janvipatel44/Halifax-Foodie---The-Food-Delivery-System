@@ -1,115 +1,132 @@
 import React, { Component, useState , useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import randomColor from 'randomcolor';
-import TagCloud from 'react-tag-cloud';
-import './wordCloud.css';
 import axios from 'axios';
-
-const styles = {
-    large: {
-      fontSize: 60,
-      fontWeight: 'bold'
-    },
-    small: {
-      opacity: 0.7,
-      fontSize: 16
-    }
-  };
 
 const WordCloud = () => {
 
-    const history = useHistory();
-    const [cloudData , setCloudData] = useState([]);
+  const [ review , setReview] = useState();
+  const [ wordCloud , setWordCloud] = useState();
+  const [ value , setValue] = useState();
 
-    useEffect(() => {
-        var restaurantId = localStorage.getItem("restaurantId");
-      
-         axios.post("http://localhost:3001/visulization")
-        .then((res) => {
-            
-            console.log(res)
-            console.log("status"+res.data.success);
-            if(res.data.success == true){
-                console.log("_____");
-                console.log(res.data.data);
-                setCloudData(res.data.data[0] );
-                res.data.data.map((x) => {
-                    console.log(x.itemName.S);
-                })
-               
-            }
-            else {
-                console.log("PPPPPP");
-            }
-        })
-        .catch((err) => {
-           
-            alert("try again after some time");
-        })
-       
-      }, []);
+useEffect(() =>{
+  
+  axios.post("https://cvyb3ge2j4.execute-api.us-east-1.amazonaws.com/default/wordCloudGetDataGroup11",JSON.stringify({data: review})).then((response) => {
+      let row = ""
+      console.log(response);
+      response.data.Items.forEach((element, index) => {
+          row = row + element.message;
+          row = row + " ";
+      });
+      setValue(row);
+      console.log('value',value);
+      alert('Successfully stored data into database');
+      axios.request(
+        {
+        method: 'POST',
+        url: 'https://textvis-word-cloud-v1.p.rapidapi.com/v1/textToCloud',
+        headers: {
+            'content-type': 'application/json',
+            'x-rapidapi-key': 'f870c70cccmsh264557ff26f7acep1588fdjsn9d67394fc992',
+            'x-rapidapi-host': 'textvis-word-cloud-v1.p.rapidapi.com'
+        },
+        data: {
+          text: value,
+          scale: 0.5,
+          width: 400,
+          height: 400,
+          colors: ['#375E97', '#FB6542', '#FFBB00', '#3F681C'],
+          font: 'Tahoma',
+          use_stopwords: true,
+          language: 'en',
+          uppercase: false
+        }
+    }).then((response) => {
+        setWordCloud(response.data);
+    }).catch((error) => {
+        console.log("Eroor")
+    })
+  }).catch((error) => {
+      console.log("Eroor")
+  })
+} , [])
 
-    return (<>
-
-        <div className="container"  style={{  overflow: "auto", maxHeight: "100vh"  }}>
-        
-        <div className="app-outer">
-        <div className="app-inner">
-       
-          <TagCloud
-            className="tag-cloud"
-            style={{
-              fontFamily: 'sans-serif',
-              
-              fontSize: 30,
-              color: () =>
-                randomColor({
-                  hue: 'blue'
-                }),
-              padding: 5
-            }}
-          >
-            <div
-              style={{
-                fontFamily: 'serif',
-                fontSize: 40,
-                fontStyle: 'italic',
-                fontWeight: 'bold',
-                color: randomColor()
-              }}
-            >
-              Futurama
-            </div>
-
-            {/* { cloudData.length > 0 ? 
-                   ( cloudData.map((t) => {
-                            return ( <div>{t}</div> )
-                    })
-                    ) : ""
-            } */}
-
-            <div style={styles.large}>Chiken Biryani</div>
-            <div style={{ fontFamily: 'courier' }}>Pavbhaji</div>
-            <div style={{ fontStyle: 'italic' }}>Chole Bhature</div>
-            <div style={{ color: 'green' }}>Samosa Chhat</div>
-            <div>Masala Dosa</div>
-            <div>Masala Dosa</div>
-            <div>Pav Bhaji</div>
-            <div>Butter Chicken Bowl</div>
-            <div>Pav Bhaji</div>
-            <div>Butter Chicken Bowl</div>
-            <div>Samosa Chhat</div>
-            <div>Burgers</div>
-            <div style={styles.small}>Pav Bhaji</div>
-            <div style={styles.small}>Butter Chicken Bowl</div>
-            <div style={styles.small}>Masala Dosa</div>
-          </TagCloud>
-        </div>
+   
+  return(   <div className="row justify-content-center" >
+  <div className="col-xl-3 col-md-4 col-sm-6 col-12">
+      <h1 className="text-center mt-5">Review</h1>
+      <div className="mt-4">
+              <img src={wordCloud}/>
       </div>
+  </div>
+</div>)
 
-        </div>
-
-    </>);
 }
 
+
+// export class Review extends Component 
+// {
+//     constructor(props) {
+//         super(props)
+
+//         this.state = {
+//             review: "",
+//             wordCloud: "",
+//             value: ""
+//         }
+//     }
+
+//     onValueChange = (event) => {
+      
+//         const {id , value} = event.target;
+//         this.setState({review : value}  );
+//     }
+
+//     handlefetchData =  (event) => 
+//     {
+//         event.preventDefault();
+      
+//     }
+
+//     handleGenerateWordCloud =  (event) =>
+//     {
+//         event.preventDefault();
+//          axios.request(
+//             {
+//             method: 'POST',
+//             url: 'https://textvis-word-cloud-v1.p.rapidapi.com/v1/textToCloud',
+//             headers: {
+//                 'content-type': 'application/json',
+//                 'x-rapidapi-key': 'f870c70cccmsh264557ff26f7acep1588fdjsn9d67394fc992',
+//                 'x-rapidapi-host': 'textvis-word-cloud-v1.p.rapidapi.com'
+//             },
+//             data: {
+//               text: this.state.value,
+//               scale: 0.5,
+//               width: 400,
+//               height: 400,
+//               colors: ['#375E97', '#FB6542', '#FFBB00', '#3F681C'],
+//               font: 'Tahoma',
+//               use_stopwords: true,
+//               language: 'en',
+//               uppercase: false
+//             }
+//         }).then((response) => {
+//             this.setState({wordCloud: response.data});
+//         }).catch((error) => {
+//             console.log("Eroor")
+//         })
+//     }
+//     render() {
+
+//         return ( 
+//             <div className="row justify-content-center" >
+//                 <div className="col-xl-3 col-md-4 col-sm-6 col-12">
+//                     <h1 className="text-center mt-5">Review</h1>
+//                     <div className="mt-4">
+//                             <img src={this.state.wordCloud}/>
+//                     </div>
+//                 </div>
+//         </div> );
+//     }
+// }
+ 
 export default WordCloud;

@@ -3,6 +3,7 @@ import React from 'react';
 import * as AiIcons from 'react-icons/ai';
 import {RiKakaoTalkFill , RiDonutChartLine} from 'react-icons/ri';
 import { MdLocalSee } from "react-icons/md";
+import { BiAnalyse } from "react-icons/bi";
 
 export const AdminSidebarData = [
   {
@@ -27,6 +28,12 @@ export const AdminSidebarData = [
     title: 'Visulization',
     path: '/visulization',
     icon: <MdLocalSee />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Analysis',
+    path: '/analysis',
+    icon: <BiAnalyse />,
     cName: 'nav-text'
   }
 
