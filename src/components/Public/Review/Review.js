@@ -44,7 +44,6 @@ export class Review extends Component
         event.preventDefault();
         console.log('add',this.state.review);
         axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: this.state.review})).then((response) => {
-            console.log("Here")
             console.log('I am here',response);
             
         }).catch((error) => {
