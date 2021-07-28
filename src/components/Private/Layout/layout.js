@@ -8,6 +8,8 @@ import BuyFoods from '../BuyFoods/buyFoods';
 import AddItem from '../AddItem/addItem';
 import Chatbot from '../Chatbot/chatbot';
 import Talktous from '../Talktous/Talktous';
+import ReceipeSimilarity from '../components/Private/ReceipeSimilarity/ReceipeSimilarity';
+import Review from '../components/Public/Review/Review';
 
 const Layout = () => {
 
@@ -39,6 +41,12 @@ const Layout = () => {
                         </Route>
                         <Route path="/talktous" component={Talktous}>
                             <Talktous></Talktous>
+                        </Route>
+                        <Route path="/review" component={Review}>
+                            <Review></Review>
+                        </Route>
+                        <Route path="/recipesimilarity"  component={ReceipeSimilarity}  >
+                            <ReceipeSimilarity></ReceipeSimilarity>
                         </Route>
                     </Switch>
                 </div>
