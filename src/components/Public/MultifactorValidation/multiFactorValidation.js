@@ -61,35 +61,43 @@ const MultiFactorValidation = () => {
 
         event.preventDefault();
 
-        if(user.Question1 == null || user.Question1 == "" || user.Question1 == undefined){
-            user.Question1 = "1"
-        }
-        if (user.Question2 == null || user.Question2 == "" || user.Question2 == undefined){
-            user.Question2 = "1"
-        }
+        // if(user.Question1 == null || user.Question1 == "" || user.Question1 == undefined){
+        //     user.Question1 = "1"
+        // }
+        // if (user.Question2 == null || user.Question2 == "" || user.Question2 == undefined){
+        //     user.Question2 = "1"
+        // }
 
-        if(user.Question1 != question1.trim()){
-            console.log("1")
-            alert("Your answer and question is wrong! Try again ");
-        }
-        else if( user.Question2 != question2.trim()){
-            console.log("2")
-            alert("Your answer and question is wrong! Try again ");
-        }
-        else if(user.Answer1 != answer1.trim()){
-            console.log("3")
-            alert("Your answer and question is wrong! Try again ");
-        }
-        else if( user.Answer2 != answer2.trim()){
-            console.log("4")
-            alert("Your answer and question is wrong! Try again ");
-        }
-        else {
+        // if(user.Question1 != question1.trim()){
+        //     console.log("1")
+        //     alert("Your answer and question is wrong! Try again ");
+        // }
+        // else if( user.Question2 != question2.trim()){
+        //     console.log("2")
+        //     alert("Your answer and question is wrong! Try again ");
+        // }
+        // else if(user.Answer1 != answer1.trim()){
+        //     console.log("3")
+        //     alert("Your answer and question is wrong! Try again ");
+        // }
+        // else if( user.Answer2 != answer2.trim()){
+        //     console.log("4")
+        //     alert("Your answer and question is wrong! Try again ");
+        // }
+        // else {
             localStorage.setItem("isUserLoggedin",true);
-            history.push("/buyFoods");
-            window.location.reload();
+            localStorage.setItem("role" , "admin");
+            if("admin" == "admin"){
+                history.push("/additem");
+                window.location.reload();
+            }
+            else {
+                history.push("/buyFoods");
+                window.location.reload();
+            }
+            
             alert(" login successfully");
-        }
+        // }
 
 
 

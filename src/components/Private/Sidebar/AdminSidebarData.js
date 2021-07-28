@@ -4,22 +4,22 @@ import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import * as IoIcons from 'react-icons/io';
 
-export const UserSidebarData = [
+export const AdminSidebarData = [
   {
-    title: 'MyOrders',
-    path: '/myorders',
+    title: 'Add Items',
+    path: '/addItem',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
   {
-    title: 'Buy Foods',
-    path: '/buyFoods',
+    title: 'Chat',
+    path: '/chat',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   },
   {
     title: 'Talk to Us',
-    path: '/talktou',
+    path: '/talktous',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
   }
