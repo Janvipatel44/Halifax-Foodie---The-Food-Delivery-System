@@ -8,49 +8,65 @@ export class Review extends Component
 
         this.state = {
             review: "",
-            fileContent: "",
-            wordCloud: ""
+            wordCloud: "",
+            value: ""
         }
     }
 
     onValueChange = (event) => {
       
         const {id , value} = event.target;
-        console.log("value"+value);
         this.setState({review : value}  );
-        // this.setState({
-        //     [event.target.name]: event.target.value
-        // });
     }
-
-    handleSubmit = (event) => 
+    
+    handleStoreData =  (event) => 
     {
         event.preventDefault();
-        let text = "Hi Janvi I am Hi Janvi I am Here";
-        console.log("In function")
-        axios.post("http://localhost:5000/reviewRoute/data",text).then((response) => {
-            console.log("Here")
-            console.log('I am here',response.data);
-            this.setState({wordCloud: response.data});
-            if (this.validateForm()) {
-                alert("Details Successfully Saved!!");
-            }
-        }).catch((error) => {
-            console.log("Eroor")
-        })
-    }
-    handleStoreData = (event) => 
-    {
-        event.preventDefault();
-        console.log('add',this.state.review);
         axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: this.state.review})).then((response) => {
-            console.log('I am here',response);
-            
+            let row = ""
+            response.data.Items.forEach((element, index) => {
+                row = row + element.message;
+                row = row + " ";
+            });
+              this.setState({
+                value: row
+            })
+            alert.message('Successfully stored data into database');
+        }).catch((error) => {
+            console.log("Eroor")
+        })
+
+    }
+
+    handleGenerateWordCloud =  (event) =>
+    {
+        event.preventDefault();
+         axios.request(
+            {
+            method: 'POST',
+            url: 'https://textvis-word-cloud-v1.p.rapidapi.com/v1/textToCloud',
+            headers: {
+                'content-type': 'application/json',
+                'x-rapidapi-key': 'f870c70cccmsh264557ff26f7acep1588fdjsn9d67394fc992',
+                'x-rapidapi-host': 'textvis-word-cloud-v1.p.rapidapi.com'
+            },
+            data: {
+              text: this.state.value,
+              scale: 0.5,
+              width: 400,
+              height: 400,
+              colors: ['#375E97', '#FB6542', '#FFBB00', '#3F681C'],
+              font: 'Tahoma',
+              use_stopwords: true,
+              language: 'en',
+              uppercase: false
+            }
+        }).then((response) => {
+            this.setState({wordCloud: response.data});
         }).catch((error) => {
             console.log("Eroor")
         })
     }
-
     render() {
 
         return ( 
@@ -62,7 +78,7 @@ export class Review extends Component
                             <p>Enter your feedback:</p>
                             <input type="text" name="review" onChange={this.onValueChange} id ="review" />
                             <button type="submit" className="btn btn-primary" onClick={this.handleStoreData} placeholder="submit">Add</button>
-                            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} placeholder="submit">Submit</button>
+                            <button type="generatecloud" className="btn btn-primary" onClick={this.handleGenerateWordCloud} placeholder="generate cloud">Generate</button>
                             <img src={this.state.wordCloud}/>
                         </form>
                     </div>
