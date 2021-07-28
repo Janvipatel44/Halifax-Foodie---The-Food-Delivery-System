@@ -93,7 +93,7 @@ const MultiFactorValidation = () => {
         // else {
             localStorage.setItem("isUserLoggedin",true);
            
-            if("admin" == "admin"){
+            if("1" == "admin"){
                 localStorage.setItem("role" , "admin");
                 history.push("/additem");
                 window.location.reload();

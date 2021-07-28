@@ -1,5 +1,5 @@
 import React , {Component}from 'react';
-import receipeSimilarityService from '../../../Services/Public/recipeSimilarity.service';
+import receipeSimilarityService from '../../../Services/Private/recipeSimilarity.service';
 
 //https://stackoverflow.com/questions/55830414/how-to-read-text-file-in-react
 //https://stackoverflow.com/questions/47511677/firebase-cloud-function-your-client-does-not-have-permission-to-get-url-200-fr

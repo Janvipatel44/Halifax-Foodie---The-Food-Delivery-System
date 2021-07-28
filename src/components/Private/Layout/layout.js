@@ -12,8 +12,9 @@ import Homepage from '../../Public/HomePage/Homepage'
 import RestaurantItem from '../../Private/RestaurantItems/RestaurantItems';
 import OrderPage from '../../Private/OrderPage/Orderpage'
 import WordCloud from '../../Private/WordCloud/WordCloud';
-import ReceipeSimilarity from '../../Public/ReceipeSimilarity/ReceipeSimilarity';
+import ReceipeSimilarity from '../../Private/ReceipeSimilarity/ReceipeSimilarity';
 import Visulization from '../../Public/VIsualization/visualization';
+
 
 const Layout = () => {
 
@@ -67,7 +68,7 @@ const Layout = () => {
                             <WordCloud></WordCloud>
                         </Route>
 
-                        
+
                     </Switch>
                 </div>
             </div>

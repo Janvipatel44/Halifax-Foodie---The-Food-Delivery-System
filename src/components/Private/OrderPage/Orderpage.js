@@ -156,9 +156,7 @@ const OrderPage = () => {
                         <form>
                             <p>Enter your feedback:</p>
                             <input type="text" name="review" onChange={onValueChange} id ="review" />
-                            <button type="submit" className="btn btn-primary" onClick={handleStoreData} placeholder="submit">Add</button>
-                            <button type="generatecloud" className="btn btn-primary" onClick={handleGenerateWordCloud} placeholder="generate cloud">Generate</button>
-                            <img src={wordCloud}/>
+                            <button type="submit" className="btn btn-primary" style ={{marginLeft:"10px"}} onClick={handleStoreData} placeholder="submit">Save</button>
                         </form>
                     </div>
                 </div>
