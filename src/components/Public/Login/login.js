@@ -25,22 +25,23 @@ const Login = () => {
     function handlelogin(event){
 
         event.preventDefault();
-       
-        loginService.loginUser(user).then((response)=>{
-            console.log(" ---")
-            if(response.data.success === true ){
+        history.push("/secondValidation");
+        localStorage.setItem("email" ,"nirbhimani@gmail.com" );
+        // loginService.loginUser(user).then((response)=>{
+        //     console.log(" ---")
+        //     if(response.data.success === true ){
                 
-                console.log(JSON.stringify(response.data.data))
-                localStorage.setItem("question1" ,response.data.data.Item.question1.S );
-                localStorage.setItem("question2" ,response.data.data.Item.question2.S );
-                localStorage.setItem("answer1" ,response.data.data.Item.answer1.S );
-                localStorage.setItem("answer2" ,response.data.data.Item.answer2.S );
-                history.push("/secondValidation");
-            }
-        }).catch((error) => {
-            alert("try again");
-            history.push("/login");
-        });
+        //         console.log(JSON.stringify(response.data.data))
+        //         localStorage.setItem("question1" ,response.data.data.Item.question1.S );
+        //         localStorage.setItem("question2" ,response.data.data.Item.question2.S );
+        //         localStorage.setItem("answer1" ,response.data.data.Item.answer1.S );
+        //         localStorage.setItem("answer2" ,response.data.data.Item.answer2.S );
+        //         history.push("/secondValidation");
+        //     }
+        // }).catch((error) => {
+        //     alert("try again");
+        //     history.push("/login");
+        // });
     }
 
     return ( <div className="row justify-content-center" >

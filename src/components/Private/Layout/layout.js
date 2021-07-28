@@ -5,6 +5,10 @@ import PrivateNavbar from '../Navbar/navbar';
 import Sidebar from '../Sidebar/sidebar';
 import MyOrders from '../MyOrders/myorders';
 import BuyFoods from '../BuyFoods/buyFoods';
+import Homepage from '../../Public/HomePage/Homepage'
+import RestaurantItem from '../../Private/RestaurantItems/RestaurantItems';
+import OrderPage from '../../Private/OrderPage/Orderpage'
+import WordCloud from '../../Private/WordCloud/WordCloud';
 
 const Layout = () => {
 
@@ -25,8 +29,19 @@ const Layout = () => {
                         <Route path="/myOrders" component={MyOrders}>
                             <MyOrders></MyOrders>
                         </Route>
-                        <Route path="/buyFoods" component={BuyFoods}>
-                            <BuyFoods></BuyFoods>
+                        <Route path="/buyFoods" component={Homepage}>
+                            <Homepage></Homepage>
+                        </Route>
+                        <Route path="/restaurantsItem" component={RestaurantItem}>
+                            <RestaurantItem></RestaurantItem>
+                        </Route>
+
+                        <Route path="/orderItem" component={OrderPage}>
+                            <OrderPage></OrderPage>
+                        </Route>
+
+                        <Route path="/wordCloud" component={WordCloud}>
+                            <WordCloud></WordCloud>
                         </Route>
                     </Switch>
                 </div>

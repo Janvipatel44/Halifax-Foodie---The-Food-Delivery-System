@@ -16,8 +16,8 @@ const PublicNavbar = () => {
         </button>
         <div className="collapse navbar-collapse justify-content-between" id="navbarContent">
             <ul className="navbar-nav">
-                <li><a className="nav-item nav-link" href="#">Recipes</a></li>
-                <li><a className="nav-item nav-link" href="#">Foods</a></li>
+                {/* <li><a className="nav-item nav-link" href="#">Recipes</a></li>
+                <li><a className="nav-item nav-link" href="#">Foods</a></li> */}
 
             </ul>
             <div>

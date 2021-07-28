@@ -7,8 +7,8 @@ import PublicNavbar from '../components/Public/NavBar/Navbar';
 import Signup from '../components/Public/Signup/signup';
 import  MultiFactorValidation  from '../components/Public/MultifactorValidation/multiFactorValidation'
 import Homepage from '../components/Public/HomePage/Homepage';
-import RestaurantsPage from '../components/Public/RestaurantsPage/RestaurantsPage';
-
+import RestaurantItems from '../components/Private/RestaurantItems/RestaurantItems';
+import RestaurantsPage from '../components/Public/RestaurantsPage/RestaurantsPage'; 
 const PublicSection = () => {
     return ( <div>
             <PublicNavbar></PublicNavbar>
@@ -28,6 +28,10 @@ const PublicSection = () => {
                     <Route path="/restaurantsPage"  component={RestaurantsPage}  >
                         <RestaurantsPage></RestaurantsPage>
                     </Route>
+                    <Route path="/restaurantsItem" component={RestaurantItems}>
+                            <RestaurantItems></RestaurantItems>
+                        </Route>
+
             </Switch> 
         </div>
     );
