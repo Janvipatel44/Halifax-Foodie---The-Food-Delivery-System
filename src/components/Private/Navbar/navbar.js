@@ -27,8 +27,8 @@ const PrivateNavbar = () => {
                 My Account
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a className="dropdown-item" href="/profilepage">MyProfile</a>
-                    <div className="dropdown-divider"></div>
+                  
+                   
                         <a className="dropdown-item" href="#" onClick={handlelogout}>Logout</a>
                     </div>
             </div>

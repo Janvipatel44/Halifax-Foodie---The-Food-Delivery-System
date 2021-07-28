@@ -1,8 +1,8 @@
 
 import React from 'react';
-import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import {RiKakaoTalkFill , RiDonutChartLine} from 'react-icons/ri';
+import { MdLocalSee } from "react-icons/md";
 
 export const AdminSidebarData = [
   {
@@ -12,15 +12,21 @@ export const AdminSidebarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Chat',
-    path: '/chat',
-    icon: <IoIcons.IoIosPaper />,
+    title: 'Talk to Us',
+    path: '/talktous',
+    icon: <RiKakaoTalkFill />,
     cName: 'nav-text'
   },
   {
-    title: 'Talk to Us',
-    path: '/talktous',
-    icon: <IoIcons.IoIosPaper />,
+    title: 'ML',
+    path: '/recipesimilarity',
+    icon: <RiDonutChartLine />,
+    cName: 'nav-text'
+  },
+  {
+    title: 'Visulization',
+    path: '/visulization',
+    icon: <MdLocalSee />,
     cName: 'nav-text'
   }
 

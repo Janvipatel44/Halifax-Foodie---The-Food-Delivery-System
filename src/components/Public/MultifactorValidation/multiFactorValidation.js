@@ -67,6 +67,12 @@ const MultiFactorValidation = () => {
         // if (user.Question2 == null || user.Question2 == "" || user.Question2 == undefined){
         //     user.Question2 = "1"
         // }
+        if(user.Question1 == null || user.Question1 == "" || user.Question1 == undefined){
+            user.Question1 = "1"
+        }
+        if (user.Question2 == null || user.Question2 == "" || user.Question2 == undefined){
+            user.Question2 = "1"
+        }
 
         // if(user.Question1 != question1.trim()){
         //     console.log("1")
@@ -86,12 +92,14 @@ const MultiFactorValidation = () => {
         // }
         // else {
             localStorage.setItem("isUserLoggedin",true);
-            localStorage.setItem("role" , "admin");
-            if("admin" == "admin"){
+           
+            if("admin1" == "admin"){
+                localStorage.setItem("role" , "admin");
                 history.push("/additem");
                 window.location.reload();
             }
             else {
+                localStorage.setItem("role" , "user");
                 history.push("/buyFoods");
                 window.location.reload();
             }

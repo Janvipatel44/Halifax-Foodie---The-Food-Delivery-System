@@ -25,7 +25,8 @@ const Login = () => {
     function handlelogin(event){
 
         event.preventDefault();
-       
+        history.push("/secondValidation");
+        localStorage.setItem("email" ,"nirbhimani@gmail.com" );
         // loginService.loginUser(user).then((response)=>{
         //     console.log(" ---")
         //     if(response.data.success === true ){
@@ -35,7 +36,7 @@ const Login = () => {
         //         localStorage.setItem("question2" ,response.data.data.Item.question2.S );
         //         localStorage.setItem("answer1" ,response.data.data.Item.answer1.S );
         //         localStorage.setItem("answer2" ,response.data.data.Item.answer2.S );
-                history.push("/secondValidation");
+        //         history.push("/secondValidation");
         //     }
         // }).catch((error) => {
         //     alert("try again");

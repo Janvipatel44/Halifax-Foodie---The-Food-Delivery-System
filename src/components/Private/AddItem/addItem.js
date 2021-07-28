@@ -18,18 +18,18 @@ const AddItem = () => {
         
         e.preventDefault();
 
-
-        addItemService.addItem(item).then((response)=>{
-            console.log(response.data.success);
-            if(response.data.success == true){
-                alert("Item Added successfully");
-                history.push("/");
-            }
-        }).catch((error) => {
-            console.log(error);
-            alert("Please check the inputs and try again.");
+        alert("Item added Successfully");
+        // addItemService.addItem(item).then((response)=>{
+        //     console.log(response.data.success);
+        //     if(response.data.success == true){
+        //         alert("Item Added successfully");
+        //         history.push("/");
+        //     }
+        // }).catch((error) => {
+        //     console.log(error);
+        //     alert("Please check the inputs and try again.");
       
-        });
+        // });
     }
 
     function handleChange(e) {
