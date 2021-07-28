@@ -53,7 +53,7 @@ useEffect(() =>{
     setWordCloud(response.data);
 }).catch((error) => {
     console.log("Eroor")
-})
+}) 
 
 } , [value])
 
