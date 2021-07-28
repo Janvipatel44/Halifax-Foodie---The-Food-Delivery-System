@@ -15,8 +15,6 @@ const MultiFactorValidation = () => {
     const [answer2, setAnswer2] = useState();
     const [formErr, setFormErrs] = useState({ Answer1Error: "", Answer2Error: "" });
 
-
-
     useEffect(() => {
         console.log(" in use effect method")
         setQuestion1(localStorage.getItem("question1"));
@@ -61,12 +59,6 @@ const MultiFactorValidation = () => {
 
         event.preventDefault();
 
-        // if(user.Question1 == null || user.Question1 == "" || user.Question1 == undefined){
-        //     user.Question1 = "1"
-        // }
-        // if (user.Question2 == null || user.Question2 == "" || user.Question2 == undefined){
-        //     user.Question2 = "1"
-        // }
         if(user.Question1 == null || user.Question1 == "" || user.Question1 == undefined){
             user.Question1 = "1"
         }
@@ -90,10 +82,28 @@ const MultiFactorValidation = () => {
         //     console.log("4")
         //     alert("Your answer and question is wrong! Try again ");
         // }
-        // else {
+
+
+         if(user.Question1 != "1"){
+            console.log("1")
+            alert("Your answer and question is wrong! Try again ");
+        }
+        else if( user.Question2 != "3"){
+            console.log("2")
+            alert("Your answer and question is wrong! Try again ");
+        }
+        else if(user.Answer1 != "ciaz"){
+            console.log("3")
+            alert("Your answer and question is wrong! Try again ");
+        }
+        else if( user.Answer2 != "surat"){
+            console.log("4")
+            alert("Your answer and question is wrong! Try again ");
+        }
+        else {
             localStorage.setItem("isUserLoggedin",true);
            
-            if("1" == "admin"){
+            if(localStorage.getItem("email") == "addaindian@gmail.com"){
                 localStorage.setItem("role" , "admin");
                 history.push("/additem");
                 window.location.reload();
@@ -105,7 +115,7 @@ const MultiFactorValidation = () => {
             }
             
             alert(" login successfully");
-        // }
+        }
 
 
 

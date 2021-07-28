@@ -25,8 +25,19 @@ const Login = () => {
     function handlelogin(event){
 
         event.preventDefault();
-        history.push("/secondValidation");
-        localStorage.setItem("email" ,"nirbhimani@gmail.com" );
+
+        if(user.email == "addaindian@gmail.com"){
+            localStorage.setItem("email" ,"addaindian@gmail.com" );
+            history.push("/secondValidation");
+        }
+        else if(user.email == "user1@gmail.com"){
+            localStorage.setItem("email" ,"user1@gmail.com" );
+            history.push("/secondValidation");
+        }
+        else {
+            alert("Invalid Credentials")
+        }
+        
         // loginService.loginUser(user).then((response)=>{
         //     console.log(" ---")
         //     if(response.data.success === true ){

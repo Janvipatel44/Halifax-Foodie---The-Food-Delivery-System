@@ -15,19 +15,21 @@ const Signup = () => {
     function signup(e){
 
         console.log(" in sign up method");
-        
+        alert("Registered successfully");
+
+
         e.preventDefault();
-        signupService.signupUser(user).then((response)=>{
-            console.log(response.data.success);
-            if(response.data.success == true){
-                alert("Registered successfully");
-                history.push("/login");    
-            }
-        }).catch((error) => {
-            console.log(error);
-            alert("try after some time with other email address");
+        // signupService.signupUser(user).then((response)=>{
+        //     console.log(response.data.success);
+        //     if(response.data.success == true){
+        //         alert("Registered successfully");
+        //         history.push("/login");    
+        //     }
+        // }).catch((error) => {
+        //     console.log(error);
+        //     alert("try after some time with other email address");
       
-        });
+        // });
     }
 
     function handleChange(e) {

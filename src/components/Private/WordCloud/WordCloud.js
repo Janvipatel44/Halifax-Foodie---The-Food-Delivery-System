@@ -21,7 +21,7 @@ useEffect(() =>{
   setValue(row);
       console.log(response);
       console.log('value',value);
-      alert('Successfully stored data into database');
+      alert('Successfully fetched data from database');
   
   }).catch((error) => {
       console.log("Eroor")
@@ -60,7 +60,7 @@ useEffect(() =>{
    
   return(   <div className="row justify-content-center" >
   <div className="col-xl-3 col-md-4 col-sm-6 col-12">
-      <h1 className="text-center mt-5">Review</h1>
+      <h1 className="text-center mt-5">Word Cloud</h1>
       <div className="mt-4">
               <img src={wordCloud}/>
       </div>
