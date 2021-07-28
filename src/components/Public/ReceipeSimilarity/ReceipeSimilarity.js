@@ -14,17 +14,53 @@ export class ReceipeSimilarity extends Component
         this.state = {
             fileContent: ""
         }
-    }
+        this.state = {
+            tag : [],
+            value: []
+        }
 
+    }
     handleUpload = (event) => 
     {
         event.preventDefault();
-        let data = {'text': "bread, butter, tomato, onion, coriander chutney"};
         console.log(this.state.fileContent);
-        receipeSimilarityService.ReceipeSimilarity(this.state.fileContent);        
+        
+        receipeSimilarityService.ReceipeSimilarity(this.state.fileContent).then((response) => {  
+
+            let confidence = [];
+            console.log('Response:', response.result[0].structValue.fields.confidences.listValue.values);
+            console.log('Response:', response.result[0].structValue.fields.displayNames.listValue.values);
+
+            response.result[0].structValue.fields.confidences.listValue.values.forEach((element, index) => {
+                let row = {}
+                row.numberValue = element.numberValue;
+                row.tagName = response.result[0].structValue.fields.displayNames.listValue.values[index].stringValue;
+                confidence.push(row)
+              });
+              this.setState({
+                value: confidence
+            })
+
+            console.log(this.state.value)
+            let displayNames = [];
+              response.result[0].structValue.fields.displayNames.listValue.forEach(element => {
+                let row = {}
+                row.stringValue = element.stringValue;
+                displayNames.push(row)
+              });
+              this.setState({
+                tag: displayNames
+            })
+
+            console.log(confidence);
+        }).catch((error) => {
+            console.log("Error")
+        }) 
+
     }
 
     showFile =  (e) => {
+
         e.preventDefault();
         const reader = new FileReader()
         let fileContent = ""
@@ -37,6 +73,7 @@ export class ReceipeSimilarity extends Component
         };
         reader.readAsText(e.target.files[0])
     }
+
     render() {
 
         return ( 
@@ -50,7 +87,16 @@ export class ReceipeSimilarity extends Component
                         </div>
                             <div className="text-center mt-5">
                                 <button type="submit" className="btn btn-primary" onClick={this.handleUpload} placeholder="upload">Upload</button>
-                            </div>          
+                            </div> 
+                            {
+                                this.state.value.length ? this.state.value.map(row => (
+                                    <div>
+                                        {row.tagName} = {row.numberValue}
+                                    </div>
+                                )) : (
+                                    <div>Nothing</div>
+                                )
+                            }                 
                         </form>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
+import axios from 'axios';
 import React , {Component}from 'react';
-import reviewService from '../../../Services/Public/review.service';
 
 export class Review extends Component 
 {
@@ -7,16 +7,49 @@ export class Review extends Component
         super(props)
 
         this.state = {
-            fileContent: ""
+            review: "",
+            fileContent: "",
+            wordCloud: ""
         }
+    }
+
+    onValueChange = (event) => {
+      
+        const {id , value} = event.target;
+        console.log("value"+value);
+        this.setState({review : value}  );
+        // this.setState({
+        //     [event.target.name]: event.target.value
+        // });
     }
 
     handleSubmit = (event) => 
     {
         event.preventDefault();
-        let data = {'text': "bread, butter, tomato, onion, coriander chutney"};
-        console.log(this.state.fileContent);
-        //reviewService        
+        let text = "Hi Janvi I am Hi Janvi I am Here";
+        console.log("In function")
+        axios.post("http://localhost:5000/reviewRoute/data",text).then((response) => {
+            console.log("Here")
+            console.log('I am here',response.data);
+            this.setState({wordCloud: response.data});
+            if (this.validateForm()) {
+                alert("Details Successfully Saved!!");
+            }
+        }).catch((error) => {
+            console.log("Eroor")
+        })
+    }
+    handleStoreData = (event) => 
+    {
+        event.preventDefault();
+        console.log('add',this.state.review);
+        axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: this.state.review})).then((response) => {
+            console.log("Here")
+            console.log('I am here',response);
+            
+        }).catch((error) => {
+            console.log("Eroor")
+        })
     }
 
     render() {
@@ -28,10 +61,10 @@ export class Review extends Component
                     <div className="mt-4">
                         <form>
                             <p>Enter your feedback:</p>
-                            <input
-                            type="text"
-                            />
+                            <input type="text" name="review" onChange={this.onValueChange} id ="review" />
+                            <button type="submit" className="btn btn-primary" onClick={this.handleStoreData} placeholder="submit">Add</button>
                             <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} placeholder="submit">Submit</button>
+                            <img src={this.state.wordCloud}/>
                         </form>
                     </div>
                 </div>
