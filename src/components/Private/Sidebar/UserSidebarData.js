@@ -16,6 +16,12 @@ export const UserSidebarData = [
     path: '/buyFoods',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
+  },
+  {
+    title: 'Talk to Us',
+    path: '/talktou',
+    icon: <IoIcons.IoIosPaper />,
+    cName: 'nav-text'
   }
 
 ];

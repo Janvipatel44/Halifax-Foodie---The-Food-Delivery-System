@@ -4,6 +4,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
+import Delay from 'delay';
 import "./chat.css";
 
 
@@ -27,7 +28,6 @@ class ChatBot extends React.Component {
     });
     var lexruntime = new AWS.LexRuntime();
     this.lexruntime = lexruntime;
-
   }
 
   handleClick() {
@@ -66,6 +66,7 @@ class ChatBot extends React.Component {
           this.setState({sessionAttributes: data.sessionAttributes})
           //sessionAttributes = data.sessionAttributes;
           // show response and/or error/dialog status
+          
           this.showResponse(data);
         }
         // re-enable input
@@ -100,7 +101,7 @@ class ChatBot extends React.Component {
 
   showResponse(lexResponse) {
 
-    var conversationDiv = document.getElementById('conversation');
+    var conversationDiv =  document.getElementById('conversation');
     var responsePara = document.createElement("P");
     responsePara.className = 'lexResponse';
     if (lexResponse.message) {

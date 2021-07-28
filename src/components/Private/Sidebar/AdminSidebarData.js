@@ -16,6 +16,12 @@ export const AdminSidebarData = [
     path: '/chat',
     icon: <IoIcons.IoIosPaper />,
     cName: 'nav-text'
+  },
+  {
+    title: 'Talk to Us',
+    path: '/talktous',
+    icon: <IoIcons.IoIosPaper />,
+    cName: 'nav-text'
   }
 
 ];
