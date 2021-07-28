@@ -1,276 +1,202 @@
-// import React,{useState,useRef,useEffect } from 'react';
-// import { Form,Row,Col,Button } from 'react-bootstrap';
-// import { ArrowRightSquareFill } from 'react-bootstrap-icons';
-// import { useHistory,useLocation } from "react-router-dom";
-// import './Talktous.css';
-// import axios from 'axios';
-// import { Spinner } from "react-bootstrap";
+// references : https://www.npmjs.com/package/react-lex-plus
+// references : https://github.com/promediacorp/react-lex
 
-const Talktous = () => {
+import React, { Component} from 'react';
+import PropTypes from 'prop-types';
+import AWS from 'aws-sdk';
+import "./talktous.css";
+
+class Talktous extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: '', 
+      lexUserId: 'chatbot-demo' + Date.now(), 
+      sessionAttributes: {}, visible: 'closed'
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    document.getElementById("inputField").focus();
+    AWS.config.region = 'us-east-1';
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: 'us-east-1:293efb1f-2854-4acc-ae29-bfbf4d7867e6',
+    });
+    var lexruntime = new AWS.LexRuntime();
+    this.lexruntime = lexruntime;
+  }
+
+  handleClick() {
+    this.setState({ visible: this.state.visible == 'open'? 'closed' : 'open' });
+    console.log(this.state);
+  }
+
+  pushChat(event) {
+    event.preventDefault();
+
+    var inputFieldText = document.getElementById('inputField');
+
+    if (inputFieldText && inputFieldText.value && inputFieldText.value.trim().length > 0) {
+
+      // disable input to show we're sending it
+      var inputField = inputFieldText.value.trim();
+      inputFieldText.value = '...';
+      inputFieldText.locked = true;
+
+      // send it to the Lex runtime
+      var params = {
+        botAlias: '$LATEST',
+        botName: 'Customer',
+        inputText: inputField,
+        userId: this.state.lexUserId,
+        sessionAttributes: this.state.sessionAttributes
+      };
+      this.showRequest(inputField);
+      var a = function(err, data) {
+        if (err) {
+          console.log(err, err.stack);
+          this.showError('Error:  ' + err.message + ' (see console for details)')
+        }
+        if (data) {
+          // capture the sessionAttributes for the next cycle
+          this.setState({sessionAttributes: data.sessionAttributes})
+          //sessionAttributes = data.sessionAttributes;
+          // show response and/or error/dialog status
+          
+          this.showResponse(data);
+        }
+        // re-enable input
+        inputFieldText.value = '';
+        inputFieldText.locked = false;
+      };
+
+      this.lexruntime.postText(params, a.bind(this));
+    }
+    // we always cancel form submission
+    return false;
+  }
+
+  showRequest(daText) {
+    var conversationDiv = document.getElementById('conversation');
+    var requestPara = document.createElement("P");
+    requestPara.className = 'userRequest';
+    requestPara.appendChild(document.createTextNode(daText));
+    conversationDiv.appendChild(requestPara);
+    conversationDiv.scrollTop = conversationDiv.scrollHeight;
+  }
+
+  showError(daText) {
+
+    var conversationDiv = document.getElementById('conversation');
+    var errorPara = document.createElement("P");
+    errorPara.className = 'lexError';
+    errorPara.appendChild(document.createTextNode(daText));
+    conversationDiv.appendChild(errorPara);
+    conversationDiv.scrollTop = conversationDiv.scrollHeight;
+  }
+
+  showResponse(lexResponse) {
+
+    var conversationDiv =  document.getElementById('conversation');
+    var responsePara = document.createElement("P");
+    responsePara.className = 'lexResponse';
+    if (lexResponse.message) {
+      responsePara.appendChild(document.createTextNode(lexResponse.message));
+      responsePara.appendChild(document.createElement('br'));
+    }
+    if (lexResponse.dialogState === 'ReadyForFulfillment') {
+      responsePara.appendChild(document.createTextNode(
+        'Ready for fulfillment'));
+      // TODO:  show slot values
+    } else {
+      responsePara.appendChild(document.createTextNode(
+        ''));
+    }
+    conversationDiv.appendChild(responsePara);
+    conversationDiv.scrollTop = conversationDiv.scrollHeight;
+  }
+
+  handleChange(event) {
+    event.preventDefault();
+    this.setState({data: event.target.value});
+  }
+
+  render() {
+
+    const inputStyle = {
+      padding: '4px',
+      fontSize: 24,
+      width: '1100px',
+      height: '40px',
+      borderRadius: '1px',
+      border: '10px'
+    }
+
+    const conversationStyle = {
+      width: '1100px',
+      height: "430px",
+      border: 'px solid #ccc',
+      backgroundColor: "#FFFFFF",
+      padding: '4px',
+      overflow: 'scroll',
+      borderBottom: 'thin ridge #bfbfbf'
+    }
+
+    const headerRectStyle = {
+      backgroundColor: '#000000', 
+      width: '1100px', 
+      height: '40px',
+      textAlign: 'center',
+      paddingTop: 12,
+      paddingBottom: -12,
+      color: '#FFFFFF',
+      fontSize: '24px'
+    }
+
+    const chatcontainerStyle = {
+      backgroundColor: '#FFFFFF',
+      width: 1100
+    }
+
+    const chatFormStyle = {
+      margin: '1px', 
+      padding: '2px'
+    }
 
     return (
-        <>
-        <h1>Talk To us Page</h1>
-        </>
+      <div id="chatwrapper">
+        <div id="myChat">
+            <div id="chat-header-rect" style={headerRectStyle} onClick={this.handleClick} > Customer Service Representative
+                {(this.state.visible === 'open') ? <span className='chevron top'></span> : <span className='chevron bottom'></span>}
+            </div>
+            <div id="chatcontainer" className={this.state.visible} style={chatcontainerStyle}>
+            <div id="conversation" style={conversationStyle} ></div>
+                <form id="chatform" style={chatFormStyle} onSubmit={this.pushChat.bind(this)}>
+                    <input type="text"
+                        id="inputField"
+                        size="40"
+                        value={this.state.data}
+                        placeholder="Please tell us your query...!"
+                        onChange={this.handleChange.bind(this)}
+                        style={inputStyle}
+                        />
+                </form>
+            </div>
+        </div>
+      </div>
     )
-
-//     const PUBSUB_BACKEND = "";
-//     const USER_PROFILE = "user";
-//     const location = useLocation();
-//     const messagesEndRef = React.createRef();
-//     const history = useHistory();
-//     const role = "restaurant";
-//     //const [role,setRole] = useState(location.state.role);
-//     const [isChatInitiated,setIsChatInitiated] = useState(false);
-//     const [isOnline,setIsOnline] = useState(true);
-//     const [conversation,setConversation] = useState('');
-//     const [userMessage,setUserMessage] = useState('');
-//     const [timerId,setTimerId] = useState('');
-//     const [user,setuser] = useState(location.state.userName);
-//     const [restaurantName,setRestaurantname] = useState(location.state.restaurantName);
-//     const [pulledMessage,setPulledMessage] = useState('');
-//     const [isLoading,setIsLoading] = useState(true);
-    
-
-//     const scrollToBottom = () => {
-//         messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
-//       }
-
-//     useEffect(() => {
-//         //initiateChat
-//         if(!isLoading)
-//         {
-//             scrollToBottom();
-//         }
-//         if(!isChatInitiated)
-//         {
-//             (role === USER_PROFILE ? initiateChat() : checkConnectionRequest());
-//         }
-//         if(pulledMessage.length>0)
-//         {
-//             addToConversation(true);
-//         }
-//         if(!isOnline)
-//         {
-//             ToggleAvailability();
-//         }
-//     }, [pulledMessage,isOnline]);
-
-//     function ToggleAvailability(){
-//         // let timerId;
-//         console.log("Inside ToggleAvailability",isOnline);
-//         if(isOnline)
-//         {           
-//             setTimerId(setInterval(() => {
-//                 // console.log('Someone Scheduled me to run every second');
-//                 //create a rest-user-publisher
-//                 //call the getAPI(PullMessage) of the user-rest-publisher in case of restaurant
-//                 pullMessage();
-//               }, 4000)); 
-//         }
-//         else
-//         {
-//             clearInterval(timerId);
-//             if(role === "user")
-//             {
-//                 history.push("/home");
-//             }
-//             else
-//             {
-//                 history.push("/restaurantHome");
-//             }
-//         }
-//     }
-
-//     async function checkConnectionRequest()
-//     {
-//         setIsLoading(true);
-//         // console.log(restaurantName);      
-//         var url = `${PUBSUB_BACKEND}/checkChatInitiation/${restaurantName}`;
-//         await axios({
-//             method:"get",
-//             url: url
-//         })
-//         .then((response)=>{
-//             console.log(response);
-//             if(response.data.status)
-//             {
-//                 setuser(response.data.user);
-//                 setIsChatInitiated(true);
-//                 // setIsOnline(true);
-//                 ToggleAvailability();
-//                 setIsLoading(false);                
-//             }
-//             else
-//             {
-//                 history.push("/restaurantHome");
-//             }
-//             alert(response.data.message);
-//         })
-//         .catch((error)=>{
-//             console.log(error);
-//             setIsLoading(false);
-//         });
-
-//     }
-
-//     async function initiateChat()
-//     {
-//         let uname = (role === USER_PROFILE ? user.split('@')[0] : user);
-//         await axios({
-//             method:"post",
-//             url:`${PUBSUB_BACKEND}/initiateChat`,
-//             data:{
-//                 "user":uname,
-//                 "restaurant":restaurantName,
-//             }
-//         })
-//         .then((response)=>{
-//             console.log("initiateChat",response);
-//             if(response.data.status)
-//             {
-//                 //stop the loader
-//                 setIsChatInitiated(true);
-//                 // setIsOnline(true);
-//                 ToggleAvailability();
-//                 setIsLoading(false);
-//             }
-//             alert(response.data.message);
-//         })
-//         .catch((error)=>{
-//             //stop the loader
-//             alert(error);
-//             setIsLoading(false);
-//         });
-//     }
-
-//     async function pushMessage()
-//     {
-//         await axios({
-//             method:"post",
-//             url:`${PUBSUB_BACKEND}/pushMessage`,
-//             data:{
-//                 "role":role,
-//                 "message":userMessage
-//             }
-//         })
-//         .then((response)=>{
-//             // alert(response);
-//         })
-//         .catch((error)=>{
-//             alert(error);
-//         });
-//     }
-
-//     async function pullMessage()
-//     {
-//         await axios({
-//             method:"get",
-//             url:`${PUBSUB_BACKEND}/getMessage`,
-//             params:{
-//                 "role":role
-//             }
-//         })
-//         .then((response)=>{
-//             console.log(response);
-//             if(response.data.length > 0)
-//             {
-//                 console.log("PullMessage",response.data[0].Message);
-//                 setPulledMessage(response.data[0].Message);
-//                 addToConversation(true);
-//             } 
-//         })
-//     }
-
-
-//     async function disconnectChat(){
-//         setIsLoading(true);
-//         setIsOnline(false);
-//         if(role === USER_PROFILE)
-//         {
-//             await axios({
-//                 method:"delete",
-//                 url:`${PUBSUB_BACKEND}/disconnectChat`
-//             }).then((response)=>{
-//                 console.log("disconnectChat",response);
-//                 if(response.status)
-//                 {
-//                     alert(response.message);
-//                     // ToggleAvailability();
-//                     setIsLoading(false);
-//                     history.push("/home");
-//                 }
-//             }).catch((error)=>{
-//                 alert(error);
-//                 setIsLoading(false);
-//             });
-//         }
-//         else
-//         {
-//             if(!isOnline)
-//             {
-//                 setIsLoading(false);
-//             // setIsOnline(false);
-//                 history.push("/restaurantHome");
-//             }
-//         }
-//     }
-
-
-//     // function getOffline(){
-//     //     //Delete the Channel
-//     //     setIsOnline(false);
-//     // }
-
-//     function addToConversation(fromOtherUser)
-//     {
-//         let prefix = fromOtherUser ? "[" + (role === USER_PROFILE ? restaurantName : user) + "]:" : "[You]:";
-//         let prevMessages = conversation;
-//         console.log("Conversation",conversation);
-//         if(!fromOtherUser)
-//         {
-//             pushMessage();
-//             prevMessages += prefix + userMessage + "\n";
-//             setConversation(prevMessages);
-//             setUserMessage('');
-//         }
-//         else
-//         {
-//             if(pulledMessage.length > 0)
-//             {
-//                 prevMessages += prefix + pulledMessage + "\n";
-//                 console.log("prevMessage before clearing",prevMessages);
-//                 setConversation(prevMessages);
-//                 setPulledMessage('');            
-//             }
-//         }        
-//         console.log("PreviousMessage",prevMessages);
-                
-//     }
-
-//     return(
-//         <div className="outer">
-//             <div className="icon">
-//                 { isLoading ? 
-//                 <Spinner animation="border" size="lg" style={{display:'flex',justifyContent:'flex-center', visibility:(isLoading ? "visibile" : "collapse") }} /> 
-//                 :
-//                 // return(
-//                     <div className="inner" style={{width:"70%"}}>
-//                     <Form.Control className="textarea" as="textarea" disabled={false} value={conversation} ref={messagesEndRef} />
-//                     <div className="footer" >
-//                         <input type="text" style={{height:"47px",width:"800px"}} value={userMessage} onChange={(e)=>setUserMessage(e.target.value)}></input>
-//                         <ArrowRightSquareFill style={{marginLeft: '0.15rem'}} onClick={()=>addToConversation(false)} size={50}/>
-//                     </div>
-//                     </div>
-//                 // );
-//                 }
-//                 <Button className="button" onClick={()=>{disconnectChat()}} variant="danger">
-//                     Offline
-//                 </Button>
-//             </div>
-//         </div>
-//     );
-
+  }
 }
+
+// LexChat.propTypes = {
+//   botName: PropTypes.string,
+//   IdentityPoolId: PropTypes.string.isRequired,
+//   placeholder: PropTypes.string.isRequired,
+//   backgroundColor: PropTypes.string,
+//   height: PropTypes.number,
+//   headerText: PropTypes.string
+// }
 
 export default Talktous;
