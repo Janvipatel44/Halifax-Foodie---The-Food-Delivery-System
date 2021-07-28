@@ -5,7 +5,7 @@ import receipeSimilarityService from '../../../Services/Public/recipeSimilarity.
 //https://stackoverflow.com/questions/47511677/firebase-cloud-function-your-client-does-not-have-permission-to-get-url-200-fr
 //https://stackoverflow.com/questions/48372815/function-not-defined-reactjs
 //https://stackoverflow.com/questions/57009371/access-to-xmlhttprequest-at-from-origin-localhost3000-has-been-blocked
-
+//http://www.hackingwithreact.com/read/1/13/rendering-an-array-of-data-with-map-and-jsx 
 export class ReceipeSimilarity extends Component 
 {
     constructor(props) {
