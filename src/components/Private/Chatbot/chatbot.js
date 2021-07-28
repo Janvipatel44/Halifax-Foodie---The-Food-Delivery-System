@@ -4,7 +4,6 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
-import Delay from 'delay';
 import "./chat.css";
 
 
