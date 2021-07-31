@@ -4,7 +4,7 @@
 import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
-import "./talktous.css";
+import "./Talktous.css";
 
 class Talktous extends React.Component {
   constructor(props) {

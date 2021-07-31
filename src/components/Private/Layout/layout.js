@@ -4,7 +4,6 @@ import { Switch,Route } from 'react-router';
 import PrivateNavbar from '../Navbar/navbar';
 import Sidebar from '../Sidebar/sidebar';
 import MyOrders from '../MyOrders/myorders';
-import BuyFoods from '../BuyFoods/buyFoods';
 import AddItem from '../AddItem/addItem';
 import Chatbot from '../Chatbot/chatbot';
 import Talktous from '../Talktous/Talktous';
@@ -48,7 +47,7 @@ const Layout = () => {
 
                         <Route path="/WordCloud" component={WordCloud}>
                             <WordCloud></WordCloud>
-                        </Route> }
+                        </Route> 
                         <Route path="/additem" component={AddItem}>
                             <AddItem></AddItem>
                         </Route>
