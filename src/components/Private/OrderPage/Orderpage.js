@@ -3,17 +3,18 @@ import './orderPage.css';
 import { useHistory } from 'react-router-dom';
 import orderService from '../../../Services/Private/order.service';
 import axios from 'axios';
+import wordCloud from '../WordCloud/WordCloud';
 
 const OrderPage = () => {
 
-    const history = useHistory();
+    let history = useHistory();
     const [isOrdered, setIsOrdered] = useState(false);
     const [orderData, setOrderData] = useState();
 
     const [ review , setReview] = useState();
     const [ wordCloud , setWordCloud] = useState();
     const [ value , setValue] = useState();
-    
+
 
     var item;
     var price;
@@ -36,52 +37,22 @@ const OrderPage = () => {
         event.preventDefault();
         axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: review})).then((response) => {
             let row = ""
-            response.data.Items.forEach((element, index) => {
-                row = row + element.message;
-                row = row + " ";
-            });
+            // response.data.Items.forEach((element, index) => {
+            //     row = row + element.message;
+            //     row = row + " ";
+            // });
             setValue(row);
-            //   this.setState({
-            //     value: row
-            // })
             alert('Successfully stored data into database');
         }).catch((error) => {
             console.log("Eroor")
         })
 
     }
-
-    const handleGenerateWordCloud =  (event) =>
+    const generateWordCloud =  (event) => 
     {
         event.preventDefault();
-         axios.request(
-            {
-            method: 'POST',
-            url: 'https://textvis-word-cloud-v1.p.rapidapi.com/v1/textToCloud',
-            headers: {
-                'content-type': 'application/json',
-                'x-rapidapi-key': 'f870c70cccmsh264557ff26f7acep1588fdjsn9d67394fc992',
-                'x-rapidapi-host': 'textvis-word-cloud-v1.p.rapidapi.com'
-            },
-            data: {
-              text: value,
-              scale: 0.5,
-              width: 400,
-              height: 400,
-              colors: ['#375E97', '#FB6542', '#FFBB00', '#3F681C'],
-              font: 'Tahoma',
-              use_stopwords: true,
-              language: 'en',
-              uppercase: false
-            }
-        }).then((response) => {
-            setWordCloud(response.data);
-            // this.setState({wordCloud: });
-        }).catch((error) => {
-            console.log("Eroor")
-        })
+        history.push("/WordCloud");
     }
-
     const confirmOrder = (e) => {
         e.preventDefault();
        
@@ -156,7 +127,8 @@ const OrderPage = () => {
                         <form>
                             <p>Enter your feedback:</p>
                             <input type="text" name="review" onChange={onValueChange} id ="review" />
-                            <button type="submit" className="btn btn-primary" style ={{marginLeft:"10px"}} onClick={handleStoreData} placeholder="submit">Save</button>
+                            <button type="submit" className="btn btn-primary" style ={{marginLeft:"10px"}} onClick={handleStoreData} placeholder="submit">Add</button>
+                            <button type="wordCloud" className="btn btn-primary" style ={{marginLeft:"10px"}} onClick={generateWordCloud} placeholder="submit">Generate Word</button>
                         </form>
                     </div>
                 </div>

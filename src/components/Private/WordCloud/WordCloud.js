@@ -12,6 +12,7 @@ const WordCloud = () => {
 
 useEffect(() =>{
   
+  console.log('Here I am');
   axios.post("https://cvyb3ge2j4.execute-api.us-east-1.amazonaws.com/default/wordCloudGetDataGroup11",JSON.stringify({data: review})).then((response) => {
     let row = "";
     response.data.Items.forEach((element, index) => {

@@ -46,9 +46,9 @@ const Layout = () => {
                             <OrderPage></OrderPage>
                         </Route>
 
-                        {/* <Route path="/wordCloud" component={WordCloud}>
+                        <Route path="/WordCloud" component={WordCloud}>
                             <WordCloud></WordCloud>
-                        </Route> */}
+                        </Route> }
                         <Route path="/additem" component={AddItem}>
                             <AddItem></AddItem>
                         </Route>
