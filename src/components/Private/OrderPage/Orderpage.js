@@ -1,3 +1,9 @@
+/**
+ * Author: Nirmal Bhimani, Janvi Patel.
+ * Created On: 2021-06-07
+ * Order handling and review storing
+ */
+
 import React, { Component, useState , useEffect } from 'react';
 import './orderPage.css';
 import { useHistory } from 'react-router-dom';
@@ -15,14 +21,22 @@ const OrderPage = () => {
     const [ wordCloud , setWordCloud] = useState();
     const [ value , setValue] = useState();
 
-    
+
     var item;
     var price;
+    var restaurantName;
+
+    /**
+         * On Page render, the restaurant ID is stored to pass that into database entry while storing feedback
+         * @param {*} event 
+    */
     useEffect(() => {
         item =   localStorage.getItem("item");
         console.log("item"+item);
         price =  localStorage.getItem("price");
-      });
+        restaurantName = localStorage.getItem("restaurantId");
+        console.log("---restaurantId"+localStorage.getItem("restaurantId"));
+      },[]);
 
 
     const  onValueChange = (event) => {
@@ -32,31 +46,42 @@ const OrderPage = () => {
      
     }
     
+     /**
+         * On click of Add button, the API call has been made and review along with restaurant Id is passed to AWS lambda
+         * @param {*} event 
+    */
     const handleStoreData =  (event) => 
     {
+        let restaurantId = localStorage.getItem("restaurantId");
         event.preventDefault();
-        axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: review})).then((response) => {
-            let row = ""
-            // response.data.Items.forEach((element, index) => {
-            //     row = row + element.message;
-            //     row = row + " ";
-            // });
-            setValue(row);
-            alert('Successfully stored data into database');
-        }).catch((error) => {
-            console.log("Eroor")
-        })
-
+        if(review == " "){
+            alert("Null feedback provided!!!");
+        }
+        else{
+            axios.post("https://8qq2x0rtge.execute-api.us-east-1.amazonaws.com/default/wordCloudGroup11",JSON.stringify({data: review, restaurantId: restaurantId})).then((response) => {
+                let row = ""
+                setValue(row);
+                alert('Successfully stored data into database');
+            }).catch((error) => {
+                console.log("Eroor")
+            })
+        }
     }
+
+    /**
+         * On click of Generate Word cloud button, another page is being render named 'wordcloud.js'
+         * @param {*} event 
+    */
     const generateWordCloud =  (event) => 
     {
         event.preventDefault();
         history.push("/WordCloud");
     }
+
+
     const confirmOrder = (e) => {
         e.preventDefault();
-       
-
+    
         var data = {
             email : localStorage.getItem("email"),
             item :localStorage.getItem("item"),
@@ -67,21 +92,12 @@ const OrderPage = () => {
         console.log("formData"+JSON.stringify(data));
 
         setIsOrdered(true);
-
-        // orderService.order(data).then((response)=>{
-        //     console.log(" ---")
-        //     if(response.data.success === true ){
-                
-        //         setIsOrdered(true);
-        //     }
-        // }).catch((error) => {
-        //     alert("try again");
-            
-        // });
-
-
     }
 
+    /**
+         * HTML code for viewing order confirmation and providing feedback
+         * @param {*} event 
+    */
     return (<>
 
         <div className="container"  style={{  overflow: "auto", maxHeight: "100vh"  }}>

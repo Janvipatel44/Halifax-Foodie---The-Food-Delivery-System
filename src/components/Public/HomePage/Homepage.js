@@ -9,6 +9,7 @@ const Homepage = () => {
 
   const restuarantItems = (e, restaurantId) => {
     e.preventDefault();
+    console.log("___"+restaurantId);
     localStorage.setItem("restaurantId", restaurantId);
     history.push("/restaurantsItem");
 

@@ -1,3 +1,9 @@
+/**
+ * Author: Janvi Patel.
+ * Created On: 2021-06-07
+ * Receipe Similarity
+ */
+
 import React , {Component}from 'react';
 import receipeSimilarityService from '../../../Services/Private/recipeSimilarity.service';
 
@@ -8,6 +14,9 @@ import receipeSimilarityService from '../../../Services/Private/recipeSimilarity
 //http://www.hackingwithreact.com/read/1/13/rendering-an-array-of-data-with-map-and-jsx 
 export class ReceipeSimilarity extends Component 
 {
+    //this contains props parameters
+        //file content to store the ingredient values
+        //tag and value to store cuisine type and similarity score to display it to user
     constructor(props) {
         super(props)
 
@@ -20,6 +29,12 @@ export class ReceipeSimilarity extends Component
         }
 
     }
+
+    /**
+     * On click upload, the post call will be made and the call will be shifted to service file
+     * @param {*} event 
+     */
+
     handleUpload = (event) => 
     {
         event.preventDefault();
@@ -42,38 +57,35 @@ export class ReceipeSimilarity extends Component
             })
 
             console.log(this.state.value)
-            let displayNames = [];
-              response.result[0].structValue.fields.displayNames.listValue.forEach(element => {
-                let row = {}
-                row.stringValue = element.stringValue;
-                displayNames.push(row)
-              });
-              this.setState({
-                tag: displayNames
-            })
-
-            console.log(confidence);
         }).catch((error) => {
             console.log("Error")
         }) 
 
     }
 
+    /**
+     * On file upload, the file content is written as json format, one the file is being read by File Reader()
+     * @param {*} event 
+     */
     showFile =  (e) => {
 
         e.preventDefault();
         const reader = new FileReader()
         let fileContent = ""
+        
 
         reader.onload = async (response) => {
             fileContent = (response.target.result)
-            console.log('FileContent', fileContent);
+         
             this.setState({fileContent: JSON.parse(fileContent)})
-            //e.target.value = null;
         };
         reader.readAsText(e.target.files[0])
     }
 
+    
+    /**
+     * HTML code to show the uplod file option and on click save the file and then provide key -value map to user
+     */
     render() {
 
         return ( 
