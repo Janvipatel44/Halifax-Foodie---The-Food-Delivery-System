@@ -21,8 +21,17 @@
 * [React](https://reactjs.org/) - The web framework used
 * [Visual Studio Code](https://code.visualstudio.com/) - Editor
 * [GitLab](https://git.cs.dal.ca) - Version Control
-* - Deployment
+* Deployment - Cloud Run (GCP)
+
 =======
 # Description
+DALSoft5410 is building a serverless Food Delivery system using a multi-cloud deployment model, and backend-as-a-service (BaaS). The Food Delivery System - “HalifaxFoodie”, should provide customization features, and additional services for restaurant owners, and limited services to customers. The application should provide online virtual assistance, which can quickly answer the queries of registered customers or guests
 
+Major features:
+1. User Management and authentication module
+2. Recipe similarity score check
+3. Word Cloud generation based on feedback provided by the users
+4. Chat module
+5. Online support module
+6. Visualization of orders and restaurant details
 
